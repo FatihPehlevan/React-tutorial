@@ -1,36 +1,48 @@
 import { useState } from "react";
+import { FaTrashAlt } from "react-icons/fa"
+
 
 function Content() {
-    const [name, setName] = useState("Dave")
-    const [count, setCount] = useState(0)
-    const handleNameChange = () => {
-        const names = ["Bob", "Kevin", "Dave", "Hang"];
-        const int = Math.floor(Math.random() * 4);
-        setName (names[int]);
-      }
-    const handleClick = () => {
-        setCount (count + 1)
-        setCount (count + 2)
-        // setCount(prev => prev + 1);
+  const [items, setItems] = useState([
+    {
+        id: 1,
+        checked: true,
+        item: "One half pound bag of Cocoa Covered Almonds Unsalted"
+    },
+    {
+        id: 2,
+        checked: false,
+        item: "Item 2"
+    },
+    {
+        id: 3,
+        checked: false,
+        item: "Item 3"
     }
-    const handleClick2 = (name) => {
-        console.log(`${count}`)
-    }
-    const handleClick3 = (e) => {
-        console.log(e.target.innerText)
-    }
+  ]);
+
+  const handleCheck = (id) => {
+    console.log(`key: ${id}`)
+  }
+
   return (
     <main>
-        <p onDoubleClick={handleClick}>
-            Hello {name}!
-        </p>
-        <hr />
-        <div>
-          {count}
-        </div>
-        <button onClick={handleNameChange}>Change Name</button>
-        <button onClick={handleClick}>Increase number</button>
-        <button onClick={handleClick2}>Print count</button>
+      <ul>
+        {items.map((item) => (
+          <li className="item" key={item.id}>
+            <input 
+              type="checkbox"
+              onChange={() => handleCheck(item.id)}
+              checked = {item.checked}
+            />
+            <label>{item.item}</label>
+            <FaTrashAlt 
+              role="button" 
+              tabIndex="0" 
+            />
+          </li>
+        ))}
+      </ul>
     </main>
   )
 }
